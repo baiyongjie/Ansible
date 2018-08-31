@@ -1,0 +1,9 @@
+--- 
+- name: install supervisor
+  hosts: client
+  roles: 
+  - supervisor 
+  tags:
+  - install_supervisor
+
+
