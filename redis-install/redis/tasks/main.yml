@@ -1,0 +1,23 @@
+---
+- name: install rpm
+  yum: name={{item}} state=present
+  with_items:
+  - gcc
+  - tcl
+- name: copy redis to remote
+  unarchive: src=files/{{redis_soft_name}} dest={{redis_soft_dir}} copy=yes  mode=755
+- name: run script to install redis
+  template: src=install.redis.sh.j2 dest={{redis_soft_dir}}/install.redis.sh  mode=755
+- shell: "{{redis_soft_dir}}/install.redis.sh"
+  ignore_errors: True
+- name: copy redis config file to remote hosts
+  template: src=redis.conf.j2 dest={{redis_install_dir}}/conf/redis.conf
+- name: copy redis restart script to remote hosts
+  template: src=restart_redis.sh.j2 dest={{redis_install_dir}}/restart_redis.sh mode=755
+- name: start redis
+  shell: "{{redis_install_dir}}/restart_redis.sh"
+- name: Check Redis Running Status
+  shell: "netstat -nplt|grep -E '{{redis_port}}'"
+  register: runStatus
+- name: display Redis Running port
+  debug: msg={{runStatus.stdout_lines}}

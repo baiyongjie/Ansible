@@ -1,0 +1,10 @@
+---
+- name: install redis
+  hosts: client
+  vars:
+   - redis_port: "6379"
+   - redis_soft_name: "redis-4.0.6.tar.gz"
+   - redis_soft_dir: "/usr/local/src"
+   - redis_install_dir: "/usr/local/redis"
+  roles:
+   - redis

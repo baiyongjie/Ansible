@@ -1,0 +1,40 @@
+#!/bin/bash
+# baiyongjie --20180607
+
+start(){
+running=`netstat -nplt|grep {{redis_port}}`
+if [[ $running == "" ]]
+then
+  {{redis_install_dir}}/bin/redis-server  {{redis_install_dir}}/conf/redis.conf
+fi
+}
+
+stop(){
+for i in `ps -ef|grep redis-server | grep {{redis_port}} |grep -v grep |awk '{print $2}'`
+do
+  kill -9 $i &> /dev/null
+done
+}
+
+status(){
+ps -ef|grep redis-server|grep -v grep
+}
+
+case $1 in
+  start)
+  start
+  status;;
+  stop)
+  stop;;
+  restart)
+  stop
+  start
+  status;;
+  status)
+  status;;
+  *)
+  start
+  status;;
+  #echo "input [start,stop,restart,status]"
+esac
+
