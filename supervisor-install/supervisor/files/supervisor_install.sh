@@ -8,6 +8,9 @@ username=admin
 password=baiyongjie
 configdir=/etc/supervisor
 
+#Get system env
+source /etc/profile
+
 #Get system version And localhost ip address
 OSVERSION=`sed -r "s/.*[ ]([0-9])(.*)/\1/"  /etc/redhat-release`
 if [ $OSVERSION -eq 6 ]

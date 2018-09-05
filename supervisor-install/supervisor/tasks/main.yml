@@ -1,6 +1,7 @@
 ---
 - script: supervisor_install.sh
   register: supervisor_install_out
+  ignore_errors: True
   tags: supervisor_install
   
 - debug: msg={{supervisor_install_out.stdout_lines}}
