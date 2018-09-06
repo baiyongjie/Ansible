@@ -83,12 +83,9 @@ then
   chkconfig --list | grep supervisord   &> /dev/null
 elif [ $OSVERSION -eq 7 ]
 then
-  if [ "`grep supervisord /etc/rc.local`" = "" ]
-  then
-    supervisord -c /etc/supervisor/supervisord.conf   &> /dev/null
-    chmod +x /etc/rc.local 
-    echo "supervisord -c /etc/supervisor/supervisord.conf" >> /etc/rc.local  
-  fi
+  curl -s http://download.baiyongjie.com/linux/supervisord/supervisord.service > /usr/lib/systemd/system/supervisord.service
+  systemctl enable supervisord.service
+  systemctl start supervisord.service
 fi
 
 if [ "`netstat -nplt | grep $port`" != "" ]
