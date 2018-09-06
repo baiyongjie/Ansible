@@ -83,9 +83,12 @@ then
   chkconfig --list | grep supervisord   &> /dev/null
 elif [ $OSVERSION -eq 7 ]
 then
-  supervisord -c /etc/supervisor/supervisord.conf   &> /dev/null
-  chmod +x /etc/rc.local 
-  echo "supervisord -c /etc/supervisor/supervisord.conf" >> /etc/rc.local  
+  if [ "`grep supervisord /etc/rc.local`" = "" ]
+  then
+    supervisord -c /etc/supervisor/supervisord.conf   &> /dev/null
+    chmod +x /etc/rc.local 
+    echo "supervisord -c /etc/supervisor/supervisord.conf" >> /etc/rc.local  
+  fi
 fi
 
 if [ "`netstat -nplt | grep $port`" != "" ]
