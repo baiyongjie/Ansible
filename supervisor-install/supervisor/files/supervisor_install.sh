@@ -27,37 +27,12 @@ then
   echo -e "$port port is used ...\nscript exit" ; exit 10
 fi
 
-
-#check pip available or not   
-if [ `which pip2 > /dev/null ; echo $?` -ne 0 ]
-then
-  wget https://bootstrap.pypa.io/ez_setup.py  &> /dev/null
-  if [ $OSVERSION -eq 6 ]
-  then
-    python2.6 ez_setup.py  &> /dev/null
-    easy_install-2.6 pip  &> /dev/null
-  elif [ $OSVERSION -eq 7 ]
-  then
-    python2.7 ez_setup.py  &> /dev/null
-    easy_install-2.7 pip  &> /dev/null
-  fi
-  if [ ! -d ~/.pip ]
-  then
-    mkdir  ~/.pip/
-    cat >  ~/.pip/pip.conf << EOF
-[global]
-index-url = https://pypi.tuna.tsinghua.edu.cn/simple
-EOF
-  fi
-  pip2.7 install --upgrade pip &> /dev/null
-fi
-
 #install supervisor
-pip install supervisor==3.3.2 &> /dev/null
-if [ $? -ne 0 ]
-then
-  echo "supervisor install faled.. please check..."; exit 20
-fi
+cd /usr/local/src
+wget http://download.baiyongjie.com/linux/supervisord/meld3-1.0.2.tar.gz   &> /dev/null
+wget http://download.baiyongjie.com/linux/supervisord/supervisor-3.3.2.tar.gz   &> /dev/null
+tar zxf meld3-1.0.2.tar.gz ; cd meld3-1.0.2 ; python setup.py install  > /dev/null ; cd ..
+tar zxf supervisor-3.3.2.tar.gz ; cd supervisor-3.3.2 ; python setup.py install > /dev/null ; cd ..
 
 #init supervisor
 if [ ! -d $configdir ]
@@ -78,19 +53,18 @@ if [ $OSVERSION -eq 6 ]
 then
   curl -s  http://download.baiyongjie.com/linux/supervisord/supervisord > /etc/init.d/supervisord
   chmod 755 /etc/init.d/supervisord
-  /etc/init.d/supervisord start
-  chkconfig --level  35 supervisord on  &> /dev/null
-  chkconfig --list | grep supervisord   &> /dev/null
+  /etc/init.d/supervisord start &> /dev/null
+  echo "/etc/init.d/supervisord start" >> /etc/rc.d/rc.local
 elif [ $OSVERSION -eq 7 ]
 then
   curl -s http://download.baiyongjie.com/linux/supervisord/supervisord.service > /usr/lib/systemd/system/supervisord.service
-  systemctl enable supervisord.service
-  systemctl start supervisord.service
+  systemctl enable supervisord.service  &> /dev/null
+  systemctl start supervisord.service  &> /dev/null
 fi
 
 if [ "`netstat -nplt | grep $port`" != "" ]
 then
-echo -e "url: $LOCALIP:$port
+echo -e "url: http://$LOCALIP:$port
 username: $username 
 password: $password"
 fi
