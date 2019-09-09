@@ -1,0 +1,5 @@
+---
+- name: install gocron node
+  hosts: gocron-node
+  roles:
+    - gocron_node

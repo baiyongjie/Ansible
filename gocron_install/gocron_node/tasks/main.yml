@@ -1,0 +1,15 @@
+---
+- name: create directory
+  file: dest=/data/gocron state=directory
+
+- name: copy gocron-node
+  copy: src=gocron-node dest=/data/gocron/gocron-node mode=777
+
+- name: copy gocron-node-start.sh
+  copy: src=gocron-node-start.sh  dest=/data/gocron/gocron-node-start.sh mode=777
+
+- name: start gocron
+  #shell: nohup /data/gocron/gocron-node -allow-root > /data/gocron/gocron-node.log 2>&1 &
+  shell: /data/gocron/gocron-node-start.sh
+  tags:
+    - start_gocron
