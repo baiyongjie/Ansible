@@ -1,0 +1,9 @@
+---
+- name: copy jdk-8u151-linux-x64.tar.gz 
+  copy: src=jdk-8u151-linux-x64.tar.gz dest=/usr/local/src
+  register: result
+
+- name: extractJava
+  unarchive: src=/usr/local/src/jdk-8u151-linux-x64.tar.gz  dest=/usr/local/ copy=no owner=root group=root mode=755
+  notify: AddJavaEnv
+  when: result is changed

@@ -1,0 +1,14 @@
+[redis_single]
+192.168.6.171
+
+[redis_single_cluster]
+192.168.1.155
+
+[redis_2host_cluster]
+192.168.1.155
+192.168.1.156
+
+[redis_3host_cluster]
+192.168.1.155
+192.168.1.156
+192.168.1.157

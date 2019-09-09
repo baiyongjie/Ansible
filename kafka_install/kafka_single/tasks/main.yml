@@ -1,0 +1,20 @@
+---
+- name: copy kafka_2.12-1.0.1.tgz
+  unarchive: src=kafka_2.12-1.0.1.tgz dest=/data
+
+- name: copy kafka config
+  template: src=server.properties dest=/data/kafka_2.12-1.0.1/config/server.properties
+
+- name: copy kafka-run-class.sh
+  template: src=kafka-run-class.sh dest=/data/kafka_2.12-1.0.1/bin/kafka-run-class.sh  mode=0755
+
+- name: start zookeeper
+  shell: /data/kafka_2.12-1.0.1/bin/zookeeper-server-start.sh  -daemon /data/kafka_2.12-1.0.1/config/zookeeper.properties 
+
+- name: start kafka
+  shell: sleep 5;/data/kafka_2.12-1.0.1/bin/kafka-server-start.sh -daemon /data/kafka_2.12-1.0.1/config/server.properties 
+
+- name: check zookeeper and kafka
+  shell: sleep 5;netstat -nplt|grep -E '2181|9092'
+  register: check
+- debug: msg={{check.stdout_lines}}

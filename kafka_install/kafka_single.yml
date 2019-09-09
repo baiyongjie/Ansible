@@ -1,0 +1,5 @@
+---
+- name: install kafka single
+  hosts: kafka_single
+  roles:
+    - kafka_single

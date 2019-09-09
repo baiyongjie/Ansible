@@ -1,0 +1,5 @@
+---
+- name: install redis single
+  hosts: redis_single
+  roles:
+    - redis_single

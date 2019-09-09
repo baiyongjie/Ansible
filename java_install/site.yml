@@ -1,0 +1,5 @@
+---
+- name: install jdk 8u151
+  hosts: java
+  roles:
+    - jdk-8u151

@@ -1,0 +1,22 @@
+---
+#### public
+redis_password: winchannel
+redis_soft: redis-4.0.6.tar.gz
+redis_soft_dir: /usr/local/src
+redis_install_dir: /usr/local/redis
+redis_logs_dir: /var/log/redis
+
+#### redis_single
+redis_single_port: 6379
+
+#### redis_single_cluster
+redis_single_cluster_port01: 7000
+redis_single_cluster_port02: 7001
+redis_single_cluster_port03: 7002
+redis_single_cluster_port04: 7003
+redis_single_cluster_port05: 7004
+redis_single_cluster_port06: 7005
+
+#### redis_2host_cluster
+
+#### redis_3host_cluster

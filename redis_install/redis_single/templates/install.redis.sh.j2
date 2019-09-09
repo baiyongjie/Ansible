@@ -1,0 +1,13 @@
+#/bin/bash
+
+if [ -d {{redis_install_dir}} ]
+then
+  echo "redis already exist" ; exit 10
+fi
+
+mkdir {{redis_install_dir}}
+cd {{redis_soft_dir}}/redis-4.0.6
+make
+make PREFIX={{redis_install_dir}} install
+mkdir {{redis_install_dir}}/conf
+
