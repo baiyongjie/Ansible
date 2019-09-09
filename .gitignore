@@ -1,3 +1,16 @@
 *.tar.gz
 *.zip
 *.retry
+ruby-2.2.7.tar.gz
+nginx-1.10.0.tar.gz
+kafka_2.12-1.0.1.tgz
+rabbitmq_server-3.6.9.zip
+logstash-6.6.2.tar.gz
+elasticsearch-6.6.2.tar.gz
+jdk-8u151-linux-x64.tar.gz
+kibana-6.6.2-linux-x86_64.tar.gz
+filebeat-6.6.2-linux-x86_64.tar.gz
+metricbeat-6.6.2-linux-x86_64.tar.gz
+roles/k8s_node_join/roles/flannel/files/flanneld
+roles/k8s_node_join/roles/kubelet/files/kubelet
+roles/k8s_node_join/roles/kubeproxy/files/kube-proxy
